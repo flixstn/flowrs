@@ -2,13 +2,14 @@ use std::ops::Mul;
 use std::ops::Add;
 use std::ops::Sub;
 
+type Dimension = (usize, usize);
+
 #[derive(Debug)]
 pub struct Matrix {
-    pub dim: (usize, usize),    // (row, col)||(width, height)
+    pub dim: Dimension,
     pub data: Vec<f32>
 }
 
-// (4,3) -> let mut vector = vec![vec![0.; dim.1]; dim.0]; (4 rows, 3, cols)
 impl Matrix {
     pub fn new(data: &Vec<Vec<f32>>) -> Self {
         Self {
@@ -29,8 +30,6 @@ impl Mul for Matrix {
     type Output = Self;
 
     fn mul(self, other: Self) -> Self {
-        // TODO: implement dimension check
-
         Self {
             dim: self.dim,
             data: self.data.iter().zip(&other.data).map(|(a,b)| *a * *b).collect(),
@@ -102,7 +101,6 @@ impl PartialEq for Matrix {
 #[cfg(test)]
 mod tests {
     use super::*;
-    // assert_eq!(expected, computed);
 
     #[test]
     fn new() {
