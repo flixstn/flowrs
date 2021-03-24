@@ -1,6 +1,6 @@
 use super::matrix::Matrix;
 
-fn mat_mul(src1: &Matrix, src2: &Matrix) -> Matrix {
+pub fn mat_mul(src1: &Matrix, src2: &Matrix) -> Matrix {
     let mut matrix = Matrix::with_zeros((src1.dim.0, src2.dim.1));
 
     for i in 0..src1.dim.0 {
@@ -15,7 +15,7 @@ fn mat_mul(src1: &Matrix, src2: &Matrix) -> Matrix {
     matrix
 }
 
-fn transpose(src: &Matrix) -> Matrix {
+pub fn transpose(src: &Matrix) -> Matrix {
     let mut matrix = Matrix::with_zeros((src.dim.1, src.dim.0));
     for i in 0..src.dim.0 {
         for j in 0..src.dim.1 {
@@ -24,6 +24,8 @@ fn transpose(src: &Matrix) -> Matrix {
     }
     matrix
 }
+
+#[cfg(test)]
 mod test {
     use super::*;
 
@@ -31,7 +33,6 @@ mod test {
     fn test_mat_mul() {
         let matrix_1 = Matrix::new(&vec![vec![1.,2.,3.], vec![4.,5.,6.]]);
         let matrix_2 = Matrix::new(&vec![vec![1.,2.], vec![3.,4.], vec![5.,6.]]);
-        
         assert_eq!(Matrix::new(&vec![vec![22.,28.], vec![49.,64.]]), mat_mul(&matrix_1, &matrix_2));
     }
 
